@@ -20,7 +20,7 @@ class Store {
             let returnedNotes;
             try {
                 returnedNotes = [].concat(JSON.parse(notes))
-            } catch (error) { 
+            } catch (error) {
                 returnedNotes = []
             }
             return returnedNotes;
@@ -28,21 +28,21 @@ class Store {
     }
 
     addNote(note) {
-        let { title, text } = note 
+        let { title, text } = note
         if (!title || !text) {
             throw new Error('Title and text are required, please re-enter the note!');
         }
-        let noteObject = {title, text, id:uuidv4()}
+        let noteObject = { title, text, id: uuidv4() }
         return this.getNotes()
-        .then((notes) => [...notes, noteObject])
-        .then((updateNotes) => this.writeNotes(updateNotes))
-        .then(() => noteObject)
+            .then((notes) => [...notes, noteObject])
+            .then((updateNotes) => this.writeNotes(updateNotes))
+            .then(() => noteObject)
     }
 
     deleteNote(id) {
         return this.getNotes()
-        .then((notes) => notes.filter((note) => note.id !== id))
-        .then((filteredNotes) => this.writeNotes(filteredNotes));
+            .then((notes) => notes.filter((note) => note.id !== id))
+            .then((filteredNotes) => this.writeNotes(filteredNotes));
     }
 }
 
