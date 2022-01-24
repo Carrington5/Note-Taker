@@ -3,29 +3,29 @@
 const router = require('express').Router();
 const Store = require('../db/store');
 
-// Get existing notes from database
+// Get existing notes from db
 router.get('/notes', (req, res) => {
     Store.getNotes()
-    .then((notes) => {
-        return res.json(notes);
-    })
-    .catch((err) => {
-        res.status(400).json(err);
-    })
+        .then((notes) => {
+            return res.json(notes);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        })
 });
 
-// Post new notes to database
+// post new notes to the db
 router.post('/notes', (req, res) => {
     Store.addNote(req.body)
-    .then((note) => res.json(note))
-    .catch((err) => res.status(400).json(err));
+        .then((note) => res.json(note))
+        .catch((err) => res.status(400).json(err));
 });
 
 // Delete notes within database by id
 router.delete('/notes/:id', (req, res) => {
     Store.deleteNote(req.params.id)
-    .then(() => res.json({ ok: true })) // read up on ok: true
-    .catch((err) => res.status(400).json(err));
+        .then(() => res.json({ ok: true })) // read up on ok: true
+        .catch((err) => res.status(400).json(err));
 });
 
 module.exports = router
